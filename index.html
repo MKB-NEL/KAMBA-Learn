@@ -1,335 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeepLearn - HTML Learning</title>
-    <style>
-        /* Mobile-first base styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
-        
-        :root {
-            --primary: #3498db;
-            --dark: #2c3e50;
-            --light: #f5f7fa;
-            --gray: #95a5a6;
-        }
-        
-        body {
-            background-color: var(--light);
-            color: #333;
-            line-height: 1.6;
-            font-size: 16px;
-        }
-        
-        /* Header styles */
-        header {
-            background-color: var(--dark);
-            color: white;
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .logo {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .logo h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-        
-        .logo p {
-            font-size: 0.7rem;
-            opacity: 0.8;
-            margin-top: 2px;
-        }
-        
-        /* Mobile menu */
-        .menu-toggle {
-            display: none;
-        }
-        
-        .hamburger {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 24px;
-            height: 18px;
-            cursor: pointer;
-        }
-        
-        .hamburger span {
-            display: block;
-            height: 2px;
-            width: 100%;
-            background-color: white;
-            transition: all 0.3s ease;
-        }
-        
-        nav {
-            position: fixed;
-            top: 60px;
-            left: 0;
-            width: 100%;
-            background-color: var(--dark);
-            padding: 1rem;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            transform: translateY(-150%);
-            transition: transform 0.3s ease;
-            z-index: 99;
-        }
-        
-        .menu-toggle:checked ~ nav {
-            transform: translateY(0);
-        }
-        
-        nav ul {
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-bottom: 0.5rem;
-        }
-        
-        nav ul li:last-child {
-            margin-bottom: 0;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 0.5rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-        
-        nav ul li a:hover, nav ul li a.active {
-            background-color: var(--primary);
-        }
-        
-        /* Main content */
-        main {
-            padding: 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .hero {
-            text-align: center;
-            padding: 2rem 0;
-        }
-        
-        .hero h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-        
-        .hero p {
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-            color: var(--gray);
-        }
-        
-        .cta-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--primary);
-            color: white;
-            text-align: center;
-            padding: 0.8rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        
-        .btn:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
-        }
-        
-        .btn.outline {
-            background-color: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        .btn.outline:hover {
-            background-color: var(--primary);
-            color: white;
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .feature-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .feature-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.8rem;
-            color: var(--dark);
-        }
-        
-        .feature-card p {
-            color: #666;
-            font-size: 0.95rem;
-        }
-        
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            background-color: var(--dark);
-            color: white;
-            margin-top: 2rem;
-            font-size: 0.9rem;
-        }
-        
-        /* Tablet styles */
-        @media (min-width: 768px) {
-            .hamburger {
-                display: none;
-            }
-            
-            nav {
-                position: static;
-                transform: none;
-                width: auto;
-                padding: 0;
-                box-shadow: none;
-                background-color: transparent;
-            }
-            
-            nav ul {
-                display: flex;
-                gap: 0.5rem;
-            }
-            
-            nav ul li {
-                margin-bottom: 0;
-            }
-            
-            .cta-buttons {
-                flex-direction: row;
-                justify-content: center;
-            }
-            
-            .features {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        /* Desktop styles */
-        @media (min-width: 1024px) {
-            .hero h2 {
-                font-size: 2.2rem;
-            }
-            
-            .features {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .header-container, main {
-                padding-left: 2rem;
-                padding-right: 2rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Secure Login</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    background: rgba(0,0,0,0.6);
+    padding: 30px;
+    border-radius: 10px;
+    width: 300px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    text-align: center;
+  }
+  h2 {
+    margin-bottom: 20px;
+  }
+  input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+  }
+  button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background: #27ae60;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  button:hover {
+    background: #2ecc71;
+  }
+  #addUserBtn {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    background: #e67e22;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    padding: 0;
+  }
+  #addUserBtn:hover {
+    background: #d35400;
+  }
+  .youtube-btn {
+    margin-top: 20px;
+    background: #ff0000;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  .youtube-btn svg {
+    margin-right: 8px;
+  }
+  .loading {
+    display: none;
+    margin-top: 10px;
+  }
+</style>
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <h1>DeepLearn</h1>
-                <p>by btem@fficial</p>
-            </div>
-            
-            <input type="checkbox" id="menu-toggle" class="menu-toggle">
-            <label for="menu-toggle" class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-            
-            <nav>
-                <ul>
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="learn.html">Learn HTML</a></li>
-                    <li><a href="practice.html">Practice & Exam</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<div class="container">
+  <h2>Sign In</h2>
+  <form id="loginForm">
+    <input type="text" id="username" placeholder="Username" required><br>
+    <input type="password" id="password" placeholder="Password" required><br>
+    <button type="submit">Login</button>
+  </form>
 
-    <main>
-        <section class="hero">
-            <h2>Master HTML on Your Mobile</h2>
-            <p>Learn, practice, and get certified in HTML - optimized for mobile devices</p>
-            <div class="cta-buttons">
-                <a href="learn.html" class="btn">Start Learning</a>
-                <a href="practice.html" class="btn outline">Take Exam</a>
-            </div>
-        </section>
+  <div class="loading" id="loading">Loading...</div>
+  <div id="errorMsg" style="color: red; margin-top: 10px;"></div>
 
-        <section class="features">
-            <div class="feature-card">
-                <h3>Mobile-Friendly Lessons</h3>
-                <p>Learn HTML concepts with interactive examples designed for touch screens.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Code Anywhere</h3>
-                <p>Practice writing HTML directly on your phone with live previews.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Get Certified</h3>
-                <p>Complete the mobile-optimized exam and receive your certificate.</p>
-            </div>
-        </section>
-    </main>
+  <a class="youtube-btn" href="https://www.youtube.com/@btemOfficial" target="_blank">
+    <svg height="20" viewBox="0 0 24 24" width="20" fill="#fff">
+      <path d="M19.615 3.184c-1.53-.41-7.615-.41-7.615-.41s-6.085 0-7.615.41A3.004 3.004 0 0 0 2.41 5.184C2 6.714 2 10.5 2 10.5s0 3.786.41 5.316a3.004 3.004 0 0 0 2.59 2c1.53.41 7.615.41 7.615.41s6.085 0 7.615-.41a3.004 3.004 0 0 0 2.59-2C22 14.286 22 10.5 22 10.5s0-3.786-.41-5.316a3.004 3.004 0 0 0-2.59-2zM9.75 13.5v-6l5.25 3-5.25 3z"/>
+    </svg>
+    KAMBA Codex — Subscribe for more
+  </a>
 
-    <footer>
-        <p>&copy; 2023 DeepLearn by btem@fficial. All rights reserved.</p>
-    </footer>
+  <button id="addUserBtn">+</button>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBbhxmAkHJtq3Zs17P4ewHsc8wi8-0M_XI",
+    authDomain: "developers-imw.firebaseapp.com",
+    projectId: "developers-imw",
+    storageBucket: "developers-imw.firebasestorage.app",
+    messagingSenderId: "182400720989",
+    appId: "1:182400720989:web:dfa30c57dcd2c8c2c96db4",
+    measurementId: "G-1VFTEWDBPG"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const loginForm = document.getElementById('loginForm');
+  const loadingEl = document.getElementById('loading');
+  const errorMsg = document.getElementById('errorMsg');
+
+  // Login handling
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    loadingEl.style.display = 'block';
+    errorMsg.textContent = '';
+
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    try {
+      const q = query(collection(db, "users"), where("username", "==", username), where("password", "==", password));
+      const querySnapshot = await getDocs(q);
+      loadingEl.style.display = 'none';
+      if (!querySnapshot.empty) {
+        window.location.href = "well.html";
+      } else {
+        errorMsg.textContent = "Invalid username or password.";
+      }
+    } catch (err) {
+      loadingEl.style.display = 'none';
+      errorMsg.textContent = "Error logging in: " + err.message;
+    }
+  });
+
+  // Add user button
+  document.getElementById('addUserBtn').addEventListener('click', async () => {
+    const newUsername = prompt("Enter new username:");
+    const newPassword = prompt("Enter new password:");
+    if (newUsername && newPassword) {
+      try {
+        await addDoc(collection(db, "users"), {
+          username: newUsername,
+          password: newPassword
+        });
+        alert("User added successfully!");
+      } catch (err) {
+        alert("Error adding user: " + err.message);
+      }
+    }
+  });
+</script>
 </body>
 </html>
